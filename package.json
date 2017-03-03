@@ -4,10 +4,11 @@
   "description": "mongoDB, react and flux",
   "main": "index.js",
   "dependencies": {
+    "async": "^2.1.5",
     "express": "^4.14.1",
     "flux": "^3.1.2",
-    "mongodb": "^1.3.23",
-    "mongoose": "^3.9.7",
+    "mongodb": "^2.2.19",
+    "mongoose": "^4.4.6",
     "react": "^15.4.2",
     "stencil": "^0.0.5"
   },
