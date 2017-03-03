@@ -55,8 +55,6 @@ function use(req, res, next) {
   var cmd = req.path.slice(1);
   var ctx = {};
 
-  console.log(cmd);
-
   switch(cmd) {
     case API_COMMANDS.INIT_DB:
       Tables.initClientDB(ctx, function(err, db) {
@@ -72,7 +70,6 @@ function use(req, res, next) {
 }
 
 function registerTable(func, tableName, schema) {
-  console.log(func);
   if (gStarted) {
     throw 'cannot model a table after startup';
   }
