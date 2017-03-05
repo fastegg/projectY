@@ -31,12 +31,12 @@ module.exports = {
         include: path.resolve(__dirname, './client'),
       },
       {
-        test: /\.css$/, loader: "style-loader!css-loader"
+        test: /\.css$/, loader: 'style-loader!css-loader'
       },
       {
-          test: /\.png$/,
-          loader: 'url-loader',
-          query: { mimetype: "image/png" }
+        test: /\.png$/,
+        loader: 'url-loader',
+        query: { mimetype: 'image/png' }
       },
       {
         test: /\.svg$/,

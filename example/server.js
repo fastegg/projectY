@@ -27,7 +27,7 @@ lib.init(projConfig, function() {
   //the module
   app.use('/api', lib.use);
   app.listen(3000, function() {
-    console.log('Example project listening on port 3000...');
+    console.log('Example project listening on port 3000...'); // eslint-disable-line
   });
 });
 
