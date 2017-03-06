@@ -2,8 +2,9 @@
 var webpackDevServer = require('webpack-dev-server');
 var webpack = require('webpack');
 var express = require('express');
+var winston = require('winston');
 
-var lib = require('./../index');
+var Reflo = require('./../server');
 var config = require('./webpack.config');
 
 var app = new webpackDevServer(webpack(config), {
@@ -17,17 +18,23 @@ var globalNewsTable = {
   description: String,
 };
 
-lib.registerGlobalTable('news', globalNewsTable);
+Reflo.registerGlobalTable('news', globalNewsTable);
+
+function createNewNews(ctx, newsTitle, newsDescription, cb) {
+
+}
+Reflo.registerAction('newNews', createNewNews);
+
 
 var projConfig = {
   mongoAddress: 'mongodb://localhost/test',
 };
 
-lib.init(projConfig, function() {
+Reflo.init(projConfig, function() {
   //the module
-  app.use('/api', lib.use);
+  app.use('/api', Reflo.use);
   app.listen(3000, function() {
-    console.log('Example project listening on port 3000...'); // eslint-disable-line
+    winston.log('Example project listening on port 3000...'); /* eslint-disable-line */
   });
 });
 

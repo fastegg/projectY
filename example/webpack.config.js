@@ -24,9 +24,11 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?$/,
+        exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'react']
+          presets: ['es2015', 'react'],
+          plugins: ['transform-es2015-destructuring', 'transform-object-rest-spread']
         },
         include: path.resolve(__dirname, './client'),
       },

@@ -1,14 +1,42 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var ReactBootstrap = require('react-bootstrap');
 
-var App = React.createClass({
+var Reflo = require('./../../index');
+
+var Grid = ReactBootstrap.Grid;
+var Col = ReactBootstrap.Grid;
+var Row = ReactBootstrap.Grid;
+
+var LoadingScreen = React.createClass({
   render: function() {
     return (
-      <div style={{marginLeft:'auto',marginRight:'auto'}}>
-        <img src='img/ripple.gif' />
-      </div>
+      <Grid>
+        <Col>
+          <Row style={{textAlign: 'center'}}>
+            <img src='img/ripple.gif' />
+          </Row>
+          <Row style={{textAlign: 'center'}}>
+            requesting DB info...
+          </Row>
+        </Col>
+      </Grid>
     );
   },
 });
 
-module.exports.init = function() {ReactDOM.render(<App />, document.getElementById('clientApp'));};
+var App = Reflo.connectAll(function(props) {
+  return <AppView {...props} />;
+});
+
+var AppView = React.createClass({
+  render: function() {
+    if (this.props.db._loadingDB) {
+      return <LoadingScreen />;
+    }
+
+    return <div>loaded! {JSON.stringify(this.props.db)}</div>;
+  }
+});
+
+module.exports.showLoadingScreen = function() {ReactDOM.render(<App />, document.getElementById('clientApp'));};
