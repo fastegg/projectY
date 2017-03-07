@@ -30,12 +30,20 @@ var App = Reflo.connectAll(function(props) {
 });
 
 var AppView = React.createClass({
+  newNews: function() {
+    Reflo.runAction('newNews', {newsTitle: 'extra extra!', newsDescription: 'this is a new news post!'}, function(err) {
+      if (err) window.alert('error running action newNews! \n' + err);
+    });
+  },
   render: function() {
     if (this.props.db._loadingDB) {
       return <LoadingScreen />;
     }
 
-    return <div>loaded! {JSON.stringify(this.props.db)}</div>;
+    return <div>
+      <div>loaded! {JSON.stringify(this.props.db)}</div>
+      <button onClick={this.newNews}>new news post</button>
+      </div>;
   }
 });
 

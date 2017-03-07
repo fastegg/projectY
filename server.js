@@ -57,7 +57,7 @@ function init(config, cb) {
     db.on('disconnect', function() {
       Log.error('disconnected from DB!');
     });
-    Log.info('connected to DB');
+    Log.info('connected to DB', config.mongoAddress);
     gReady = true;
     Tables.modelTables();
     cb();
@@ -66,6 +66,7 @@ function init(config, cb) {
 
 var API_COMMANDS = {
   INIT_DB: 'initDB',
+  RUN_ACTION: 'runAction',
 };
 
 function use(req, res, next) {
@@ -73,16 +74,30 @@ function use(req, res, next) {
     throw 'DB not ready!';
   }
 
-  var cmd = req.path.slice(1);
-  var ctx = {};
+  var cmd = req.path.slice(1).split('/');
+  var ctx = {
+    personalUpdates: [],
+  };
 
-  switch(cmd) {
+  switch(cmd[0]) {
   case API_COMMANDS.INIT_DB:
     Tables.initClientDB(ctx, function(err, db) {
       if (err) {
         res.status(400).send(err).end();
+      } else {
+        res.status(200).send(db || {}).end();
       }
-      res.status(200).send(db || {}).end();
+      next();
+    });
+    break;
+  case API_COMMANDS.RUN_ACTION:
+    var body = req.body;
+    Actions.executeAction(ctx, body.action, body.params, function(err, result) {
+      if (err) {
+        res.status(400).send(err).end();
+      } else {
+        res.status(200).send({result: result, updates: ctx.personalUpdates});  
+      }
       next();
     });
     break;
@@ -105,6 +120,7 @@ module.exports.use = use;
 
 module.exports.registerGlobalTable = registerTable.bind(null, Tables.registerGlobalTable);
 module.exports.registerAccountTable = registerTable.bind(null, Tables.registerAccountTable);
+module.exports.insertClientData = Tables.insertClientData;
 
 for (var cmd in Actions) {
   module.exports[cmd] = Actions[cmd];

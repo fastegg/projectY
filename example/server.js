@@ -3,6 +3,7 @@ var webpackDevServer = require('webpack-dev-server');
 var webpack = require('webpack');
 var express = require('express');
 var winston = require('winston');
+var bodyParser = require('body-parser');
 
 var Reflo = require('./../server');
 var config = require('./webpack.config');
@@ -13,6 +14,8 @@ var app = new webpackDevServer(webpack(config), {
   historyApiFallback: true
 });
 
+app.use(bodyParser.json());
+
 var globalNewsTable = {
   title: String,
   description: String,
@@ -21,10 +24,14 @@ var globalNewsTable = {
 Reflo.registerGlobalTable('news', globalNewsTable);
 
 function createNewNews(ctx, newsTitle, newsDescription, cb) {
+  var newsData = {
+    title: newsTitle,
+    description: newsDescription,
+  };
 
+  Reflo.insertClientData(ctx, ['news'], newsData, cb);
 }
 Reflo.registerAction('newNews', createNewNews);
-
 
 var projConfig = {
   mongoAddress: 'mongodb://localhost/test',
