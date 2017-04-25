@@ -1,0 +1,60 @@
+cocktail app layout
+
+user:
+  has many users (friends) (following or requests?)
+  has many bottles (owned bottles list)
+  has many recipes
+  has many recipeStores
+  has many reviews
+  name: string
+  email: string
+  picture: string
+
+reviews:
+  owned by user
+  recipeID: string (required)
+  comments: string
+  rating: number
+  picture: string
+
+recipes:
+  owned by user
+  has many reviews
+  name: string
+  ingredients: arrayOf: object
+    bottleID: string
+    subTags: arrayOf: string
+    quantity: number
+    quantityType: enum (required) (example: 'oz' where quantity is shown, or 'a splash of' where quantity is not)
+  directions: arrayOf: string
+
+recipeStores:
+  has many recipes
+  title: string
+  description: string
+
+bottle: (global)
+  name: string (required)
+  type: enum (required)
+  subType: string
+  picture: string
+  description: string
+  tags: arrayOf: string
+
+
+Permissions:
+Any one can create an account
+
+Any user can read from globalRecipes
+Any user can read from bottles
+Any user can follow any other user (privacy options? Not allow follows?)
+Any user can write/read owned recipes
+Friendly user can read owned recipes
+Any user can write/read owned reivews
+Friendly user can write/read reviews to unowned recipes
+Any user can write/read reviews to recipeStores recipes
+Any user can read reviews to globalRecipes
+
+Any admin can write to bottles
+Any admin can write to recipeStores
+
