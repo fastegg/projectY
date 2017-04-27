@@ -40,7 +40,18 @@
       ]
     }
   },
-  "files": {},
+  "files": {
+    "loopback#static": [{
+      "name": "public",
+      "paths": ["/"],
+      "params": "$!../public" 
+    },
+    {
+        "name": "builds",
+        "paths": ["/builds"],
+        "params": "$!../builds"
+    }]
+  },
   "final": {
     "loopback#urlNotFound": {}
   },

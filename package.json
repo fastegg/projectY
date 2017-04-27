@@ -5,7 +5,8 @@
   "scripts": {
     "lint": "eslint .",
     "start": "node .",
-    "posttest": "npm run lint && nsp check"
+    "posttest": "npm run lint && nsp check",
+    "build": "webpack"
   },
   "dependencies": {
     "body-parser": "^1.17.1",
@@ -22,10 +23,13 @@
     "loopback-component-explorer": "^4.0.0",
     "loopback-component-passport": "^3.2.0",
     "loopback-connector-mongodb": "^1.18.1",
+    "loopback-webpack-plugin": "^0.1.2",
     "mongoose": "^4.9.6",
     "passport-facebook": "^2.1.1",
+    "preact": "^8.1.0",
     "serve-favicon": "^2.0.1",
-    "strong-error-handler": "^1.0.1"
+    "strong-error-handler": "^1.0.1",
+    "webpack": "^2.4.1"
   },
   "devDependencies": {
     "eslint": "^2.13.1",
