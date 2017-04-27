@@ -1,8 +1,6 @@
 {
   "_meta": {
     "sources": [
-      "loopback/common/models",
-      "loopback/server/models",
       "../common/models",
       "./models",
       "../node_modules/loopback-component-passport/lib/models"
@@ -17,6 +15,10 @@
   "user": {
     "dataSource": "mongodb",
     "public": true
+  },
+  "session": {
+    "dataSource": "mongodb",
+    "public": false
   },
   "accessToken": {
     "dataSource": "mongodb",

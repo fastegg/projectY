@@ -1,0 +1,9 @@
+{
+  "name": "session",
+  "plural": "sessions",
+  "properties": {},
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

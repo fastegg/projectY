@@ -10,6 +10,7 @@
     "successRedirect": "/auth/account",
     "failureRedirect": "/login",
     "scope": ["email"],
+    "profileFields": ["gender", "link", "locale", "name", "timezone", "verified", "email", "updated_time"],
     "failureFlash": true
   }
 }
