@@ -2,14 +2,15 @@
 var path = require('path');
 
 var LoopbackBootPlugin = require('loopback-webpack-plugin');
-
-console.log(__dirname);
  
 module.exports = {
-    entry: './client/app.js',
+    entry: { 
+      app: ['./client/app.js']
+    },
     context: __dirname,
     output: {
-        path: __dirname + '\\builds\\',
+        path: __dirname,
+        publicPath: "/builds/",
         filename: 'bundle.js'
     },
     resolve: {
@@ -26,6 +27,7 @@ module.exports = {
         'react-dom': 'preact-compat'
       }
     },
+    devtool: 'cheap-module-source-map',
     module: {
         loaders: [
             { test: /\.json$/, loader: 'json' } // Be careful, the JSON loader is required 

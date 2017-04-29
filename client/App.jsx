@@ -4,7 +4,8 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        This is the app loaded!
+        This is the app loading...
+        hot swaping don't reload...
       </div>
     );
   }

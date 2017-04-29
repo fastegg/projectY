@@ -6,7 +6,8 @@
     "lint": "eslint .",
     "start": "node .",
     "posttest": "npm run lint && nsp check",
-    "build": "webpack"
+    "build": "webpack",
+    "watch": "webpack-dev-server --hot --inline"
   },
   "dependencies": {
     "babel": "^6.5.2",
@@ -50,7 +51,8 @@
   "devDependencies": {
     "eslint": "^2.13.1",
     "eslint-config-loopback": "^4.0.0",
-    "nsp": "^2.1.0"
+    "nsp": "^2.1.0",
+    "webpack-dev-server": "^2.4.5"
   },
   "repository": {
     "type": "",
