@@ -5,7 +5,6 @@ export default class App extends Component {
     return (
       <div>
         This is the app loading...
-        hot swaping don't reload...
       </div>
     );
   }

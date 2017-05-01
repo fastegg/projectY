@@ -7,9 +7,11 @@
     "start": "node .",
     "posttest": "npm run lint && nsp check",
     "build": "webpack",
+    "buildServer": "tsc && gulp copy",
     "watch": "webpack-dev-server --hot --inline"
   },
   "dependencies": {
+    "@types/node": "^7.0.14",
     "babel": "^6.5.2",
     "babel-core": "^6.24.0",
     "babel-eslint": "^7.2.2",

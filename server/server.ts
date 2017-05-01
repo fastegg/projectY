@@ -1,21 +1,22 @@
 'use strict';
 
-var boot = require('loopback-boot');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var expressFlash = require('express-flash');
-var expressSession = require('express-session');
-var loopback = require('loopback');
-var loopbackPassport = require('loopback-component-passport');
-var mongoose = require('mongoose');
-var mongoStore = require('connect-mongo')(expressSession);
+import * as boot from 'loopback-boot';
+import * as bodyParser from 'body-parser';
+import * as cookieParser from 'cookie-parser';
+import * as expressFlash from 'express-flash';
+import * as expressSession from 'express-session';
+import * as loopback from 'loopback';
+import * as loopbackPassport from 'loopback-component-passport';
+import * as connectMongo from 'connect-mongo';
 
-var app = module.exports = loopback();
+let mongoStore = connectMongo(expressSession);
 
-var PassportConfigurator = loopbackPassport.PassportConfigurator;
-var passportConfigurator = new PassportConfigurator(app);
+let app = module.exports = loopback();
 
-var config = {};
+let PassportConfigurator = loopbackPassport.PassportConfigurator;
+let passportConfigurator = new PassportConfigurator(app);
+
+let config;
 try {
   config = require('../providers.json');
 } catch (err) {
@@ -68,26 +69,26 @@ var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 var loggedInFunc = ensureLoggedIn('/login');
 
-app.get('/auth/account', function(req, res, next) {
+app.get('/auth/account', function(req:any, res:any, next:any) {
     loggedInFunc(req,res,next);
-  }, function(req, res, next) {
+  }, function(req:any, res:any, _next:any) {
   res.send(JSON.stringify(req.user) + ' ' + req.url + '<br/><a href="/auth/logout">Logout</a>');
 });
 
-app.get('/login', function(req, res) {
+app.get('/login', function(_req:any, res:any) {
   res.send('please login in <a href="/auth/facebook">using fb</a>');
 });
 
-app.post('/signup', function(req, res, next) {
+app.post('/signup', function(req:any, res:any, _next:any) {
   console.log('Signup!');
   var User = app.models.user;
 
-  var newUser = {};
+  var newUser :any = {};
   newUser.email = req.body.email.toLowerCase();
   newUser.username = req.body.username.trim();
   newUser.password = req.body.password;
 
-  User.create(newUser, function(err, user) {
+  User.create(newUser, function(err:any, user:any) {
     if (err) {
       req.flash('error', err.message);
       return res.redirect('back');
@@ -107,7 +108,7 @@ app.post('/signup', function(req, res, next) {
   });
 });
 
-app.get('/auth/logout', function(req, res, next) {
+app.get('/auth/logout', function(req, res, _next) {
   req.logout();
   res.redirect('/');
 });
